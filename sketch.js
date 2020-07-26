@@ -49,7 +49,7 @@ function setup() {
   selBrush.style('font-family', 'Times New Roman, Times, serif')
   selBrush.option('Round')
   selBrush.option('Chisel Tip')
-  selBrush.option('Square')
+  selBrush.option('Rainbow')
   selBrush.selected('Circle')
   // BRUSH COLOR SELECTION --------------------------------------
   colorPicker = createColorPicker(color('Orange'))
@@ -110,11 +110,13 @@ function draw() {
               brushLayer.rect(0, 0, scaleVal, scaleVal/2.5, scaleVal/3)
               brushLayer.pop()     
               } 
-                else if (val === 'Square') {
+                else if (val === 'Rainbow') {
                   brushLayer.push();
+                  brushLayer.colorMode(HSB)
                   brushLayer.translate(-windowWidth/8, 0)
-                  brushLayer.fill('Black')
+                  brushLayer.fill((frameCount*1.5) % 360, 100, 100)
                   brushLayer.noStroke()
+                  //brushLayer.stroke(frameCount % 360, 100, 100)
                   brushLayer.ellipse(imgX, imgY, scaleSlider.value())
                   brushLayer.pop()     
                 }}
