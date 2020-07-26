@@ -58,7 +58,7 @@ function setup() {
   selBrush.option('Sloth')
   selBrush.selected('Circle')
   // BRUSH COLOR SELECTION --------------------------------------
-  colorPicker = createColorPicker(color('Orange'))
+  colorPicker = createColorPicker(color(240, 248, 255))
   colorPicker.position(xPos, yMargin * 2.6)
   colorPicker.style('width', '8.65vw')
   colorPicker.style('height', '12vh')
@@ -67,9 +67,9 @@ function setup() {
   scaleSlider.position(xPos, windowHeight/3 + yMargin/2)
   scaleSlider.style('width', '9vw')
   // BRUSH ANGLE ------------------------------------------------
-  rotateSlider = createSlider(0, 180, 30)
-  rotateSlider.position(xPos, windowHeight/3 + yMargin)
-  rotateSlider.style('width', '9vw')
+  // rotateSlider = createSlider(0, 180, 30)
+  // rotateSlider.position(xPos, windowHeight/3 + yMargin)
+  // rotateSlider.style('width', '9vw')
   // CLEAR DRAWING ----------------------------------------------
   clearDrawing = createButton('Clear')
   clearDrawing.position(xPos, height - yMargin * 1.75)
@@ -109,68 +109,44 @@ function draw() {
           else if (val === 'Chisel Tip') {
             brushLayer.push()
             brushLayer.translate(imgX - windowWidth/8, imgY)
-            brushLayer.rotate(rotateSlider.value())
-            brushLayer.noStroke()
-            brushLayer.fill(colorPicker.color())
-            brushLayer.rect(0, 0, scaleVal, scaleVal/2.5, scaleVal/3)
+            brushLayer.strokeWeight(scaleVal/3)
+            brushLayer.stroke(colorPicker.color())
+            brushLayer.line(0, 0, -scaleVal, scaleVal)
             brushLayer.pop()     
             } 
-            else if (val === 'Rainbow') {
-              brushLayer.push();
-              brushLayer.colorMode(HSB)
-              brushLayer.translate(-windowWidth/8, 0)
-              brushLayer.fill((frameCount*1.5) % 360, 100, 100)
-              brushLayer.noStroke()
-              brushLayer.circle(imgX, imgY, scaleVal)
-              brushLayer.pop()     
-            }
-            else if (val === 'Cockroach') {
-              brushLayer.push()
-              brushLayer.translate(imgX, imgY)
-              brushLayer.rotate(rotateSlider.value())
-              roachImg.resize(windowWidth/18, 0)
-              brushLayer.image(roachImg, -roachImg.width * 3, -roachImg.height/2)
-              brushLayer.pop()
-
-
-            }
-            
-              
-              
-              
-              }
+          else if (val === 'Rainbow') {
+            brushLayer.push();
+            brushLayer.colorMode(HSB)
+            brushLayer.translate(-windowWidth/8, 0)
+            brushLayer.fill((frameCount*1.5) % 360, 100, 100)
+            brushLayer.noStroke()
+            brushLayer.circle(imgX, imgY, scaleVal)
+            brushLayer.pop()     
+          }
+          else if (val === 'Cockroach') {
+            brushLayer.push()
+            brushLayer.translate(imgX, imgY)
+            //brushLayer.rotate(rotateSlider.value())
+            roachImg.resize((windowWidth/18), 0)
+            brushLayer.image(roachImg, -roachImg.width * 2, -roachImg.height/2)
+            brushLayer.pop()
+          }
+    }
  
   image(brushLayer, windowWidth/8 + drawingMargin, 0)
-  
-    // interface/gui styling
-    //push()
-    //fill(bgCol)
-    //noStroke()
-    //rect(0, 0, (windowWidth/8) - 1, windowHeight)
-    //pop()
 
-    push()
-    stroke('black')
-    strokeWeight(1)
-    // line(x1, y1, x2, y2)
-    line(windowWidth/8, 0, windowWidth/8, windowHeight)
-    // line(0, yMargin * 2, windowWidth/8, yMargin * 2)
-    // line(0, windowHeight/3, windowWidth/8, windowHeight/3)
-    // line(0, windowHeight/3 * 2, windowWidth/8, windowHeight/3 * 2)
-    pop()
-  
+  push()
+  stroke('black')
+  strokeWeight(1)
+  line(windowWidth/8, 0, windowWidth/8, windowHeight)
+  pop()
 
-  
 }
-
 
 
 function resetSketch(){
   brushLayer.clear()
 }
-
-
-
 
 
 function windowResized() {
@@ -180,10 +156,8 @@ function windowResized() {
 }
 
 
-
 function changeBg() {
   let val = selBg.value()
-
   
     if (val === 'White') {
       bgCol = color('White')
@@ -205,17 +179,10 @@ function changeBg() {
 
   brushLayer.background(bgCol)
 
-      
-
-
 }
 
 
-
 function saveFile() {
-  // * can remove rules by removing background below
-  //let saveDrawing = brushLayer + bgColoring
-  //saveCanvas(brushLayer, 'forBrittanyAndSteffi', 'jpg');
   saveCanvas(canvas, 'forBrittanyAndSteffi', 'jpg')
 }
 
