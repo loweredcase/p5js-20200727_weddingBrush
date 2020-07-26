@@ -11,22 +11,26 @@ for Brittany Nelson & Steffi Hessler
 let bgCol
 let scaleVal = 1
 let intialSize
+let roachImg
+// let slothImg
+
+
+function preload() {
+  roachImg = loadImage('assets/cockroach.png')
+  //slothImg = loadImage('')
+}
 
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight)
   initialSize = min(width, height)
   canvas.parent("p5canvas")
-  let xMargin = windowWidth * .075
   let yMargin = windowHeight * .065
   let interfaceMargin = windowWidth/8
   let xPos = (windowWidth/8)/2 - (windowWidth * .09)/2
-  let butXPos = (windowWidth/8)/2
   frameRate(60)
   
   brushLayer = createGraphics(windowWidth-interfaceMargin, windowHeight);
   
-  
-
   // CHOOSE BACKGROUND COLOR ------------------------------------
   selBg = createSelect()
   selBg.position(xPos, yMargin/2)
@@ -50,6 +54,8 @@ function setup() {
   selBrush.option('Round')
   selBrush.option('Chisel Tip')
   selBrush.option('Rainbow')
+  selBrush.option('Cockroach')
+  selBrush.option('Sloth')
   selBrush.selected('Circle')
   // BRUSH COLOR SELECTION --------------------------------------
   colorPicker = createColorPicker(color('Orange'))
@@ -79,10 +85,10 @@ function setup() {
   saveDrawing.style('background-color', 'white')
   saveDrawing.mousePressed(saveFile)
   bgCol = color('White')
+
 }
 
 function draw() {
-  let yMargin = windowHeight * .065
   background(bgCol)
   let drawingMargin = windowWidth/500
 
@@ -92,7 +98,6 @@ function draw() {
         val = selBrush.value()
         scaleVal = scaleSlider.value()
 
-
         if (val === 'Round') {
           brushLayer.push();
           brushLayer.translate(-windowWidth/8, 0)
@@ -101,34 +106,48 @@ function draw() {
           brushLayer.circle(imgX, imgY, scaleVal)
           brushLayer.pop()     
           } 
-            else if (val === 'Chisel Tip') {
-              brushLayer.push()
-              brushLayer.translate(imgX - windowWidth/8, imgY)
-              brushLayer.rotate(rotateSlider.value())
+          else if (val === 'Chisel Tip') {
+            brushLayer.push()
+            brushLayer.translate(imgX - windowWidth/8, imgY)
+            brushLayer.rotate(rotateSlider.value())
+            brushLayer.noStroke()
+            brushLayer.fill(colorPicker.color())
+            brushLayer.rect(0, 0, scaleVal, scaleVal/2.5, scaleVal/3)
+            brushLayer.pop()     
+            } 
+            else if (val === 'Rainbow') {
+              brushLayer.push();
+              brushLayer.colorMode(HSB)
+              brushLayer.translate(-windowWidth/8, 0)
+              brushLayer.fill((frameCount*1.5) % 360, 100, 100)
               brushLayer.noStroke()
-              brushLayer.fill(colorPicker.color())
-              brushLayer.rect(0, 0, scaleVal, scaleVal/2.5, scaleVal/3)
+              brushLayer.circle(imgX, imgY, scaleVal)
               brushLayer.pop()     
-              } 
-                else if (val === 'Rainbow') {
-                  brushLayer.push();
-                  brushLayer.colorMode(HSB)
-                  brushLayer.translate(-windowWidth/8, 0)
-                  brushLayer.fill((frameCount*1.5) % 360, 100, 100)
-                  brushLayer.noStroke()
-                  //brushLayer.stroke(frameCount % 360, 100, 100)
-                  brushLayer.ellipse(imgX, imgY, scaleSlider.value())
-                  brushLayer.pop()     
-                }}
+            }
+            else if (val === 'Cockroach') {
+              brushLayer.push()
+              brushLayer.translate(imgX, imgY)
+              brushLayer.rotate(rotateSlider.value())
+              roachImg.resize(windowWidth/18, 0)
+              brushLayer.image(roachImg, -roachImg.width * 3, -roachImg.height/2)
+              brushLayer.pop()
+
+
+            }
+            
+              
+              
+              
+              }
  
   image(brushLayer, windowWidth/8 + drawingMargin, 0)
   
     // interface/gui styling
-    push()
+    //push()
     //fill(bgCol)
     //noStroke()
     //rect(0, 0, (windowWidth/8) - 1, windowHeight)
-    pop()
+    //pop()
 
     push()
     stroke('black')
@@ -158,13 +177,14 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight)
   let size = min(width, height)
   scaleVal = size / initialSize
-  
 }
 
 
 
 function changeBg() {
   let val = selBg.value()
+
+  
     if (val === 'White') {
       bgCol = color('White')
     } else if (val === 'Black') {
@@ -182,17 +202,20 @@ function changeBg() {
     }else if (val === 'Purple') {
       bgCol = color('Purple')
     }
+
+  brushLayer.background(bgCol)
+
       
 
 
 }
 
 
+
 function saveFile() {
   // * can remove rules by removing background below
   //let saveDrawing = brushLayer + bgColoring
-  saveCanvas(brushLayer, 'forBrittanyAndSteffi', 'png');
+  //saveCanvas(brushLayer, 'forBrittanyAndSteffi', 'jpg');
+  saveCanvas(canvas, 'forBrittanyAndSteffi', 'jpg')
 }
-
-
 
