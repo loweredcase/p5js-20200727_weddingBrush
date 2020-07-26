@@ -164,7 +164,7 @@ function windowResized() {
 function changeBg() {
   let val = selBg.value()
     if (val === 'White') {
-      bgCol = color()
+      bgCol = color('White')
     } else if (val === 'Black') {
       bgCol = color('Black')
     } else if (val === 'Red') {
