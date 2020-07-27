@@ -20,6 +20,8 @@ function preload() {
   //slothImg = loadImage('')
 }
 
+
+
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight)
   initialSize = min(width, height)
@@ -76,20 +78,14 @@ function setup() {
   clearDrawing.position(xPos, height - yMargin * 1.75)
   clearDrawing.style('font-family', 'Times New Roman, Times, serif')
   clearDrawing.style('width', '9vw')
-  clearDrawing.style('stroke', '1px')
-  clearDrawing.style('stroke', 'black')
-  clearDrawing.style('background-color', 'white')
   clearDrawing.mousePressed(resetSketch)
   // SAVE DRAWING -----------------------------------------------
   saveDrawing = createButton('Save')
   saveDrawing.position(xPos, height - yMargin)
   saveDrawing.style('font-family', 'Times New Roman, Times, serif')
   saveDrawing.style('width', '9vw')
-  saveDrawing.style('stroke', '1px')
-  saveDrawing.style('stroke', 'black')
-  saveDrawing.style('background-color', 'white')
-  //saveDrawing.style('background-color', 'white')
   saveDrawing.mousePressed(saveFile)
+
   bgCol = color('White')
 
 }
@@ -102,34 +98,34 @@ function draw() {
     let imgX = mouseX, 
         imgY = mouseY,
         val = selBrush.value()
-        scaleVal = scaleSlider.value()
+        sliderVal = scaleSlider.value()
 
-        if (val === 'Round') {
+        if (val === 'Round' && mouseX >= windowWidth/8) {
           brushLayer.push();
           brushLayer.translate(-windowWidth/8, 0)
           brushLayer.fill(colorPicker.color())
           brushLayer.noStroke()
-          brushLayer.circle(imgX, imgY, scaleVal)
+          brushLayer.circle(imgX, imgY, sliderVal)
           brushLayer.pop()     
           } 
-          else if (val === 'Chisel Tip') {
+          else if (val === 'Chisel Tip'&& mouseX >= windowWidth/8) {
             brushLayer.push()
             brushLayer.translate(imgX - windowWidth/8, imgY)
-            brushLayer.strokeWeight(scaleVal/3)
+            brushLayer.strokeWeight(sliderVal/3)
             brushLayer.stroke(colorPicker.color())
-            brushLayer.line(0, 0, -scaleVal, scaleVal)
+            brushLayer.line(0, 0, -sliderVal, sliderVal)
             brushLayer.pop()     
             } 
-          else if (val === 'Rainbow') {
+          else if (val === 'Rainbow' && mouseX >= windowWidth/8) {
             brushLayer.push();
             brushLayer.colorMode(HSB)
             brushLayer.translate(-windowWidth/8, 0)
             brushLayer.fill((frameCount*1.5) % 360, 100, 100)
             brushLayer.noStroke()
-            brushLayer.circle(imgX, imgY, scaleVal)
+            brushLayer.circle(imgX, imgY, sliderVal)
             brushLayer.pop()     
           }
-          else if (val === 'Cockroach') {
+          else if (val === 'Cockroach' && mouseX >= windowWidth/8) {
             brushLayer.push()
             brushLayer.translate(imgX, imgY)
             //brushLayer.rotate(rotateSlider.value())
@@ -140,13 +136,6 @@ function draw() {
     }
  
   image(brushLayer, windowWidth/8 + drawingMargin, 0)
-
-  push()
-  stroke('black')
-  strokeWeight(1)
-  line(windowWidth/8, 0, windowWidth/8, windowHeight)
-  pop()
-
 }
 
 
@@ -191,4 +180,10 @@ function changeBg() {
 function saveFile() {
   saveCanvas(canvas, 'forBrittanyAndSteffi', 'jpg')
 }
+
+// function buttonStyle(){
+//   var element = document.getElementById('p5canvas')
+//   saveDrawing.classList.add("buttonStyling")
+
+// }
 
