@@ -78,7 +78,7 @@ function setup() {
   clearDrawing.style('width', '9vw')
   clearDrawing.style('stroke', '1px')
   clearDrawing.style('stroke', 'black')
-  //clearDrawing.style('background-color', 'red')
+  clearDrawing.style('background-color', 'white')
   clearDrawing.mousePressed(resetSketch)
   // SAVE DRAWING -----------------------------------------------
   saveDrawing = createButton('Save')
@@ -87,6 +87,7 @@ function setup() {
   saveDrawing.style('width', '9vw')
   saveDrawing.style('stroke', '1px')
   saveDrawing.style('stroke', 'black')
+  saveDrawing.style('background-color', 'white')
   //saveDrawing.style('background-color', 'white')
   saveDrawing.mousePressed(saveFile)
   bgCol = color('White')
