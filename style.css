@@ -7,4 +7,6 @@ html, body {
   }
   
 
-  
+#p5canvas button {
+  border: 1px solid red;
+}
