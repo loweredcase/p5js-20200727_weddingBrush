@@ -194,7 +194,7 @@ function touchMoved(){
     brushLayer.image(slothImg, -slothImg.width * 2, -slothImg.height/2)
     brushLayer.pop()
   }
-
+  return false
 }
 
 
