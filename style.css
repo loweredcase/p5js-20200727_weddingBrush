@@ -7,6 +7,55 @@ html, body {
   }
   
 
-/* .buttonStyling {
-  border: 1px solid red;
-} */
+  /* #p5canvas {
+  
+  } */
+
+
+  /* .draw-tool{
+    position: relative;
+    display: block;
+    top: 30px;
+    margin-bottom: 20px;
+
+
+  } */
+
+  .draw-buttonSave {
+   
+    border: 1px solid black;
+    background-color: white;
+    font: .75em "Times New Roman", serif;
+    width: 9vw;
+  }
+
+  .draw-buttonClear {
+    border: 1px solid black;
+    background-color: white;
+    font: .75em "Times New Roman", serif;
+    width: 9vw;
+        /* position: ; */
+  }
+
+  .draw-slider {
+    border: 1px solid black;
+    background-color: white;
+    width: 9vw;
+        /* position: ; */
+  }
+
+
+  .draw-colorPicker{
+    border: 1px solid black;
+    background-color: white;
+    width: 8.65vw;
+    /* height: 12vh; */
+    /* position: ; */
+  }
+
+  .draw-select{
+    border: 1px solid black;
+    background-color: white;
+    font: .75em "Times New Roman", serif;
+        /* position: ; */
+  }

@@ -26,65 +26,15 @@ function setup() {
   let canvas = createCanvas(windowWidth, windowHeight)
   initialSize = min(width, height)
   canvas.parent("p5canvas")
-  let yMargin = windowHeight * .065
+  //let yMargin = windowHeight * .065
   let interfaceMargin = windowWidth/8
-  let xPos = (windowWidth/8)/2 - (windowWidth * .09)/2
+  //let xPos = (windowWidth/8)/2 - (windowWidth * .09)/2
   frameRate(60)
   
   brushLayer = createGraphics(windowWidth-interfaceMargin, windowHeight);
   
-  // CHOOSE BACKGROUND COLOR ------------------------------------
-  selBg = createSelect()
-  selBg.position(xPos, yMargin/2)
-  selBg.style('width', '9vw')
-  //selBg.style('fill', 'red')
-  selBg.style('font-family', 'Times New Roman, Times, serif')
-  selBg.option('Black')
-  selBg.option('White')
-  selBg.option('Red')
-  selBg.option('Orange')
-  selBg.option('Yellow')
-  selBg.option('Green')
-  selBg.option('Blue')
-  selBg.option('Purple')
-  selBg.selected('White')
-  selBg.changed(changeBg)
-  // BRUSH SELECTION --------------------------------------------
-  selBrush = createSelect()
-  selBrush.position(xPos, yMargin)
-  selBrush.style('width', '9vw')
-  selBrush.style('font-family', 'Times New Roman, Times, serif')
-  selBrush.option('Round')
-  selBrush.option('Chisel Tip')
-  selBrush.option('Rainbow')
-  selBrush.option('Cockroach')
-  selBrush.option('Sloth')
-  selBrush.selected('Circle')
-  // BRUSH COLOR SELECTION --------------------------------------
-  colorPicker = createColorPicker(color(240, 248, 255))
-  colorPicker.position(xPos, yMargin * 2.6)
-  colorPicker.style('width', '8.65vw')
-  colorPicker.style('height', '12vh')
-  // BRUSH SCALE ------------------------------------------------
-  scaleSlider = createSlider(10, 200, 25);
-  scaleSlider.position(xPos, windowHeight/3 + yMargin/2)
-  scaleSlider.style('width', '9vw')
-  // BRUSH ANGLE ------------------------------------------------
-  // rotateSlider = createSlider(0, 180, 30)
-  // rotateSlider.position(xPos, windowHeight/3 + yMargin)
-  // rotateSlider.style('width', '9vw')
-  // CLEAR DRAWING ----------------------------------------------
-  clearDrawing = createButton('Clear')
-  clearDrawing.position(xPos, height - yMargin * 1.75)
-  clearDrawing.style('font-family', 'Times New Roman, Times, serif')
-  clearDrawing.style('width', '9vw')
-  clearDrawing.mousePressed(resetSketch)
-  // SAVE DRAWING -----------------------------------------------
-  saveDrawing = createButton('Save')
-  saveDrawing.position(xPos, height - yMargin)
-  saveDrawing.style('font-family', 'Times New Roman, Times, serif')
-  saveDrawing.style('width', '9vw')
-  saveDrawing.mousePressed(saveFile)
+  drawingTools = drawingTools()
+
 
   bgCol = color('White')
 
@@ -139,6 +89,72 @@ function draw() {
 }
 
 
+function drawingTools(){
+
+  let xPos = ((windowWidth/8)/2 - (windowWidth * .09)/2) * scaleVal
+  let yMargin = (windowHeight * .065) * scaleVal
+
+
+  // CHOOSE BACKGROUND COLOR ------------------------------------
+  selBg = createSelect()
+  selBg.class('draw-select')
+  //selBg.class('draw-tool')
+  selBg.position(xPos, yMargin/2)
+  selBg.style('width', '9vw')
+  selBg.option('Black')
+  selBg.option('White')
+  selBg.option('Red')
+  selBg.option('Orange')
+  selBg.option('Yellow')
+  selBg.option('Green')
+  selBg.option('Blue')
+  selBg.option('Purple')
+  selBg.selected('White')
+  selBg.changed(changeBg)
+  // BRUSH SELECTION --------------------------------------------
+  selBrush = createSelect()
+  selBrush.class('draw-select')
+  //selBrush.class('draw-tool')
+  selBrush.position(xPos, yMargin + 10)
+  selBrush.style('width', '9vw')
+  selBrush.option('Round')
+  selBrush.option('Chisel Tip')
+  selBrush.option('Rainbow')
+  selBrush.option('Cockroach')
+  selBrush.option('Sloth')
+  selBrush.selected('Circle')
+    // BRUSH SCALE ------------------------------------------------
+    scaleSlider = createSlider(10, 200, 25)
+    scaleSlider.class('draw-slider')
+    //scaleSlider.class('draw-tool')
+    scaleSlider.position(xPos, (yMargin * 2) + 10)
+  // BRUSH COLOR SELECTION --------------------------------------
+  colorPicker = createColorPicker(color(240, 248, 255))
+  colorPicker.class('draw-colorPicker')
+  //colorPicker.class('draw-tool')
+  colorPicker.position(xPos, (yMargin * 3) + 10)
+  // BRUSH ANGLE ------------------------------------------------
+  // rotateSlider = createSlider(0, 180, 30)
+  // rotateSlider.position(xPos, windowHeight/3 + yMargin)
+  // rotateSlider.style('width', '9vw')
+  // CLEAR DRAWING ----------------------------------------------
+  clearDrawing = createButton('Clear')
+  clearDrawing.class('draw-buttonClear')
+  //clearDrawing.class('draw-tool')
+  clearDrawing.position(xPos, (yMargin * 4) + 20)
+  clearDrawing.mousePressed(resetSketch)
+  // SAVE DRAWING -----------------------------------------------
+  saveDrawing = createButton('Save')
+  saveDrawing.class('draw-buttonSave')
+  //saveDrawing.class('draw-tool')
+  saveDrawing.position(xPos, (yMargin * 5) + 10)
+  saveDrawing.mousePressed(saveFile)
+
+
+
+}
+
+
 function resetSketch(){
   brushLayer.clear()
 }
@@ -148,6 +164,7 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight)
   let size = min(width, height)
   scaleVal = size / initialSize
+ drawingTools = drawingTools()
 }
 
 
