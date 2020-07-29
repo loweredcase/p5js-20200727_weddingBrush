@@ -98,7 +98,6 @@ function drawingTools(){
   // CHOOSE BACKGROUND COLOR ------------------------------------
   selBg = createSelect()
   selBg.class('draw-select')
-  //selBg.class('draw-tool')
   selBg.position(xPos, yMargin/2)
   selBg.style('width', '9vw')
   selBg.option('Black')
@@ -114,7 +113,6 @@ function drawingTools(){
   // BRUSH SELECTION --------------------------------------------
   selBrush = createSelect()
   selBrush.class('draw-select')
-  //selBrush.class('draw-tool')
   selBrush.position(xPos, yMargin + 10)
   selBrush.style('width', '9vw')
   selBrush.option('Round')
@@ -123,31 +121,28 @@ function drawingTools(){
   selBrush.option('Cockroach')
   selBrush.option('Sloth')
   selBrush.selected('Circle')
-    // BRUSH SCALE ------------------------------------------------
-    scaleSlider = createSlider(10, 200, 25)
-    scaleSlider.class('draw-slider')
-    //scaleSlider.class('draw-tool')
-    scaleSlider.position(xPos, (yMargin * 2) + 10)
+  // BRUSH SCALE ------------------------------------------------
+  scaleSlider = createSlider(10, 200, 25)
+  scaleSlider.class('draw-slider')
+  scaleSlider.position(xPos, (yMargin * 2) + 20)
   // BRUSH COLOR SELECTION --------------------------------------
   colorPicker = createColorPicker(color(240, 248, 255))
   colorPicker.class('draw-colorPicker')
-  //colorPicker.class('draw-tool')
-  colorPicker.position(xPos, (yMargin * 3) + 10)
+  colorPicker.position(xPos, (yMargin * 4) - 10)
+  //colorPicker.style('height', )
   // BRUSH ANGLE ------------------------------------------------
   // rotateSlider = createSlider(0, 180, 30)
   // rotateSlider.position(xPos, windowHeight/3 + yMargin)
   // rotateSlider.style('width', '9vw')
   // CLEAR DRAWING ----------------------------------------------
   clearDrawing = createButton('Clear')
-  clearDrawing.class('draw-buttonClear')
-  //clearDrawing.class('draw-tool')
-  clearDrawing.position(xPos, (yMargin * 4) + 20)
+  clearDrawing.class('draw-button')
+  clearDrawing.position(xPos, (yMargin * 7) + 20)
   clearDrawing.mousePressed(resetSketch)
   // SAVE DRAWING -----------------------------------------------
   saveDrawing = createButton('Save')
-  saveDrawing.class('draw-buttonSave')
-  //saveDrawing.class('draw-tool')
-  saveDrawing.position(xPos, (yMargin * 5) + 10)
+  saveDrawing.class('draw-button')
+  saveDrawing.position(xPos, (yMargin * 8) + 10)
   saveDrawing.mousePressed(saveFile)
 
 
