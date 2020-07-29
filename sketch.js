@@ -43,7 +43,7 @@ function draw() {
   if (mouseIsPressed) {
     let imgX = mouseX, 
         imgY = mouseY,
-        val = selBrush.value()
+        val = selBrush.value(),
         sliderVal = scaleSlider.value()
 
         if (val === 'Round' && mouseX >= windowWidth/8) {
@@ -152,7 +152,7 @@ function drawingTools(){
 function touchMoved(){
   let imgX = mouseX, 
   imgY = mouseY,
-  val = selBrush.value()
+  val = selBrush.value(),
   sliderVal = scaleSlider.value()
 
   if (val === 'Round' && mouseX >= windowWidth/8) {
