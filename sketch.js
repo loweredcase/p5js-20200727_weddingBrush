@@ -24,7 +24,7 @@ function preload() {
 
 
 function setup() {
-  createMetaTag()
+  //createMetaTag()
   let canvas = createCanvas(windowWidth, windowHeight)
   //let canvas = createCanvas(windowWidth, windowHeight)
   canvas.parent("p5canvas")
@@ -99,6 +99,9 @@ function draw() {
   
 }
 
+function mouseIsPressed(){
+    isTouching = true
+}
 
 function touchStarted() {
   isTouching = true;
@@ -113,14 +116,14 @@ function touchMoved() {
   return false;
 }
 
-function createMetaTag() {
-  let meta = createElement('meta');
-  meta.attribute('name', 'viewport');
-  meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
+// function createMetaTag() {
+//   let meta = createElement('meta');
+//   meta.attribute('name', 'viewport');
+//   meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
   
-  let head = select('head');
-  meta.parent(head);
-}
+//   let head = select('head');
+//   meta.parent(head);
+// }
 
 
 
@@ -161,7 +164,7 @@ function drawingTools(){
   scaleSlider.class('draw-slider')
   scaleSlider.position(xPos, (yMargin * 2) + 20)
   // BRUSH COLOR SELECTION --------------------------------------
-  colorPicker = createColorPicker(color(240, 248, 255))
+  colorPicker = createColorPicker(color('red'))
   colorPicker.class('draw-colorPicker')
   colorPicker.position(xPos, (yMargin * 4) - 10)
   // BRUSH ANGLE ------------------------------------------------
