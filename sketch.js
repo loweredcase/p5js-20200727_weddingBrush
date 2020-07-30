@@ -24,7 +24,7 @@ function preload() {
 
 
 function setup() {
-  createMetaTag()
+  //createMetaTag()
   let canvas = createCanvas(window.innerWidth, window.innerHeight)
   //let canvas = createCanvas(windowWidth, windowHeight)
   canvas.parent("p5canvas")
@@ -113,14 +113,14 @@ function touchMoved() {
   return false;
 }
 
-function createMetaTag() {
-  let meta = createElement('meta');
-  meta.attribute('name', 'viewport');
-  meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
+// function createMetaTag() {
+//   let meta = createElement('meta');
+//   meta.attribute('name', 'viewport');
+//   meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
   
-  let head = select('head');
-  meta.parent(head);
-}
+//   let head = select('head');
+//   meta.parent(head);
+// }
 
 
 
