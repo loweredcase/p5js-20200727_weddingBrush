@@ -93,28 +93,30 @@ function draw() {
 
   }
 
-
-
   image(brushLayer, windowWidth/8 + drawingMargin, 0)
   
 }
 
-function mouseIsPressed(){
-    isTouching = true
+function mouseDragged(){
+  isTouching = true
 }
+
 
 function touchStarted() {
   isTouching = true;
 }
 
+
 function touchEnded() {
   isTouching = false;
 }
+
 
 function touchMoved() {
   // prevent the display from moving around when you touch it
   return false;
 }
+
 
 // function createMetaTag() {
 //   let meta = createElement('meta');
@@ -124,8 +126,6 @@ function touchMoved() {
 //   let head = select('head');
 //   meta.parent(head);
 // }
-
-
 
 
 function drawingTools(){
