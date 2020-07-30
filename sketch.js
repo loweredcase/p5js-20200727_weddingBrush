@@ -14,15 +14,19 @@ let intialSize
 let roachImg
 let slothImg
 
+let isTouching = false
+
 
 function preload() {
-  roachImg = loadImage('assets/cockroach.png')
+  roachImg = loadImage('assets/cockroach2.png')
   slothImg = loadImage('assets/sloth.png')
 }
 
 
 function setup() {
-  let canvas = createCanvas(windowWidth, windowHeight)
+  createMetaTag()
+  let canvas = createCanvas(window.innerWidth, window.innerHeight)
+  //let canvas = createCanvas(windowWidth, windowHeight)
   canvas.parent("p5canvas")
   initialSize = min(width, height)
   let interfaceMargin = windowWidth/8
@@ -36,60 +40,89 @@ function setup() {
 
 
 function draw() {
+
   background(bgCol)
   let drawingMargin = windowWidth/500
+  let imgX = mouseX, 
+  imgY = mouseY,
+  val = selBrush.value(),
+  sliderVal = scaleSlider.value()
 
-
-  // if (mouseIsPressed) {
-  //   let imgX = mouseX, 
-  //       imgY = mouseY,
-  //       val = selBrush.value(),
-  //       sliderVal = scaleSlider.value()
-
-  //       if (val === 'Round' && mouseX >= windowWidth/8) {
-  //         brushLayer.push();
-  //         brushLayer.translate(-windowWidth/8, 0)
-  //         brushLayer.fill(colorPicker.color())
-  //         brushLayer.noStroke()
-  //         brushLayer.circle(imgX, imgY, sliderVal)
-  //         brushLayer.pop()     
-  //       } 
-  //       else if (val === 'Chisel Tip'&& mouseX >= windowWidth/8) {
-  //         brushLayer.push()
-  //         brushLayer.translate(imgX - windowWidth/8, imgY)
-  //         brushLayer.strokeWeight(sliderVal/3)
-  //         brushLayer.stroke(colorPicker.color())
-  //         brushLayer.line(0, 0, -sliderVal, sliderVal)
-  //         brushLayer.pop()     
-  //       } 
-  //       else if (val === 'Rainbow' && mouseX >= windowWidth/8) {
-  //         brushLayer.push();
-  //         brushLayer.colorMode(HSB)
-  //         brushLayer.translate(-windowWidth/8, 0)
-  //         brushLayer.fill((frameCount*1.5) % 360, 100, 100)
-  //         brushLayer.noStroke()
-  //         brushLayer.circle(imgX, imgY, sliderVal)
-  //         brushLayer.pop()     
-  //       }
-  //       else if (val === 'Cockroach' && mouseX >= windowWidth/8) {
-  //         brushLayer.push()
-  //         brushLayer.translate(imgX, imgY)
-  //         roachImg.resize((windowWidth/18), 0)
-  //         brushLayer.image(roachImg, -roachImg.width * 2, -roachImg.height/2)
-  //         brushLayer.pop()
-  //       }
-  //       else if (val === 'Sloth' && mouseX >= windowWidth/8) {
-  //         brushLayer.push()
-  //         brushLayer.translate(imgX, imgY)
-  //         slothImg.resize((windowWidth/10), 0)
-  //         brushLayer.image(slothImg, -slothImg.width * 2, -slothImg.height/2)
-  //         brushLayer.pop()
-  //       }
-  //  else (touchMoved())}
+  if (isTouching){
   
+    if (val === 'Round' && mouseX >= windowWidth/8) {
+      brushLayer.push();
+      brushLayer.translate(-windowWidth/8, 0)
+      brushLayer.fill(colorPicker.color())
+      brushLayer.noStroke()
+      brushLayer.circle(imgX, imgY, sliderVal)
+      brushLayer.pop()     
+    } 
+    else if (val === 'Chisel Tip'&& mouseX >= windowWidth/8) {
+      brushLayer.push()
+      brushLayer.translate(imgX - windowWidth/8, imgY)
+      brushLayer.strokeWeight(sliderVal/3)
+      brushLayer.stroke(colorPicker.color())
+      brushLayer.line(0, 0, -sliderVal, sliderVal)
+      brushLayer.pop()     
+    } 
+    else if (val === 'Rainbow' && mouseX >= windowWidth/8) {
+      brushLayer.push();
+      brushLayer.colorMode(HSB)
+      brushLayer.translate(-windowWidth/8, 0)
+      brushLayer.fill((frameCount*1.5) % 360, 100, 100)
+      brushLayer.noStroke()
+      brushLayer.circle(imgX, imgY, sliderVal)
+      brushLayer.pop()     
+    }
+    else if (val === 'Cockroach' && mouseX >= windowWidth/8) {
+      brushLayer.push()
+      brushLayer.translate(imgX, imgY)
+      roachImg.resize((windowWidth/10) + (scaleSlider.value() - 30), 0)
+      brushLayer.image(roachImg, -roachImg.width * 2, -roachImg.height/2)
+      brushLayer.pop()
+    }
+    else if (val === 'Sloth' && mouseX >= windowWidth/8) {
+      brushLayer.push()
+      brushLayer.translate(imgX, imgY)
+      slothImg.resize((windowWidth/8) + (scaleSlider.value() - 30), 0)
+      brushLayer.image(slothImg, -slothImg.width * 2, -slothImg.height/2)
+      brushLayer.pop()
+    }
+    //return false
+
+  }
+
+
+
   image(brushLayer, windowWidth/8 + drawingMargin, 0)
-  //return false
+  
 }
+
+
+function touchStarted() {
+  isTouching = true;
+}
+
+function touchEnded() {
+  isTouching = false;
+}
+
+function touchMoved() {
+  // prevent the display from moving around when you touch it
+  return false;
+}
+
+function createMetaTag() {
+  let meta = createElement('meta');
+  meta.attribute('name', 'viewport');
+  meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
+  
+  let head = select('head');
+  meta.parent(head);
+}
+
+
 
 
 function drawingTools(){
@@ -149,65 +182,65 @@ function drawingTools(){
 }
 
 
-function mousePressed(){
-  mouseEvent = touchMoved()
-  //return false
-}
+// function mousePressed(){
+//   mouseEvent = touchMoved()
+//   //return false
+// }
 
 
-function mouseDragged(){
-  mouseEvent = touchMoved()
-  //return false
-}
+// function mouseDragged(){
+//   mouseEvent = touchMoved()
+//   //return false
+// }
 
 
-function touchMoved(){
-  let imgX = mouseX, 
-  imgY = mouseY,
-  val = selBrush.value(),
-  sliderVal = scaleSlider.value()
+// function touchMoved(){
+//   let imgX = mouseX, 
+//   imgY = mouseY,
+//   val = selBrush.value(),
+//   sliderVal = scaleSlider.value()
 
-  if (val === 'Round' && mouseX >= windowWidth/8) {
-    brushLayer.push();
-    brushLayer.translate(-windowWidth/8, 0)
-    brushLayer.fill(colorPicker.color())
-    brushLayer.noStroke()
-    brushLayer.circle(imgX, imgY, sliderVal)
-    brushLayer.pop()     
-  } 
-  else if (val === 'Chisel Tip'&& mouseX >= windowWidth/8) {
-    brushLayer.push()
-    brushLayer.translate(imgX - windowWidth/8, imgY)
-    brushLayer.strokeWeight(sliderVal/3)
-    brushLayer.stroke(colorPicker.color())
-    brushLayer.line(0, 0, -sliderVal, sliderVal)
-    brushLayer.pop()     
-  } 
-  else if (val === 'Rainbow' && mouseX >= windowWidth/8) {
-    brushLayer.push();
-    brushLayer.colorMode(HSB)
-    brushLayer.translate(-windowWidth/8, 0)
-    brushLayer.fill((frameCount*1.5) % 360, 100, 100)
-    brushLayer.noStroke()
-    brushLayer.circle(imgX, imgY, sliderVal)
-    brushLayer.pop()     
-  }
-  else if (val === 'Cockroach' && mouseX >= windowWidth/8) {
-    brushLayer.push()
-    brushLayer.translate(imgX, imgY)
-    roachImg.resize((windowWidth/18), 0)
-    brushLayer.image(roachImg, -roachImg.width * 2, -roachImg.height/2)
-    brushLayer.pop()
-  }
-  else if (val === 'Sloth' && mouseX >= windowWidth/8) {
-    brushLayer.push()
-    brushLayer.translate(imgX, imgY)
-    slothImg.resize((windowWidth/10), 0)
-    brushLayer.image(slothImg, -slothImg.width * 2, -slothImg.height/2)
-    brushLayer.pop()
-  }
-  return false
-}
+//   if (val === 'Round' && mouseX >= windowWidth/8) {
+//     brushLayer.push();
+//     brushLayer.translate(-windowWidth/8, 0)
+//     brushLayer.fill(colorPicker.color())
+//     brushLayer.noStroke()
+//     brushLayer.circle(imgX, imgY, sliderVal)
+//     brushLayer.pop()     
+//   } 
+//   else if (val === 'Chisel Tip'&& mouseX >= windowWidth/8) {
+//     brushLayer.push()
+//     brushLayer.translate(imgX - windowWidth/8, imgY)
+//     brushLayer.strokeWeight(sliderVal/3)
+//     brushLayer.stroke(colorPicker.color())
+//     brushLayer.line(0, 0, -sliderVal, sliderVal)
+//     brushLayer.pop()     
+//   } 
+//   else if (val === 'Rainbow' && mouseX >= windowWidth/8) {
+//     brushLayer.push();
+//     brushLayer.colorMode(HSB)
+//     brushLayer.translate(-windowWidth/8, 0)
+//     brushLayer.fill((frameCount*1.5) % 360, 100, 100)
+//     brushLayer.noStroke()
+//     brushLayer.circle(imgX, imgY, sliderVal)
+//     brushLayer.pop()     
+//   }
+//   else if (val === 'Cockroach' && mouseX >= windowWidth/8) {
+//     brushLayer.push()
+//     brushLayer.translate(imgX, imgY)
+//     roachImg.resize((windowWidth/10) + (scaleSlider.value() - 30), 0)
+//     brushLayer.image(roachImg, -roachImg.width * 2, -roachImg.height/2)
+//     brushLayer.pop()
+//   }
+//   else if (val === 'Sloth' && mouseX >= windowWidth/8) {
+//     brushLayer.push()
+//     brushLayer.translate(imgX, imgY)
+//     slothImg.resize((windowWidth/8) + (scaleSlider.value() - 30), 0)
+//     brushLayer.image(slothImg, -slothImg.width * 2, -slothImg.height/2)
+//     brushLayer.pop()
+//   }
+//   return false
+// }
 
 
 function resetSketch(){
