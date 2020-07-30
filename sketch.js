@@ -78,7 +78,7 @@ function draw() {
     else if (val === 'Cockroach' && mouseX >= windowWidth/8) {
       brushLayer.push()
       brushLayer.translate(imgX, imgY)
-      roachImg.resize((windowWidth/10) + (scaleSlider.value() - 30), 0)
+      roachImg.resize((windowWidth/12) + (scaleSlider.value() - 30), 0)
       brushLayer.image(roachImg, -roachImg.width * 2, -roachImg.height/2)
       brushLayer.pop()
     }
